@@ -47,6 +47,11 @@
       font-weight: bold;
       color: green;
     }
+    #region {
+      margin-top: 0.5rem;
+      font-size: 0.95rem;
+      color: #0078D4;
+    }
     #error {
       margin-top: 1rem;
       color: red;
@@ -80,18 +85,47 @@
     <input type="text" id="domain" placeholder="Zadejte doménu (např. tdsynnex.com)">
     <button onclick="getTenantId()">Získat Tenant ID</button>
     <div id="result"></div>
+    <div id="region"></div>
     <button id="copyBtn" onclick="copyResult()">Kopírovat Tenant ID</button>
     <div id="error"></div>
   </div>
 
   <script>
+    function getRegionLabel(partition, location) {
+      const map = {
+        NA: "Severní Amerika",
+        NAM: "Severní Amerika",
+        EUR: "Evropa",
+        EU: "Evropa",
+        APC: "Asie a Tichomoří",
+        APAC: "Asie a Tichomoří",
+        SAM: "Jižní Amerika",
+        MEA: "Blízký východ a Afrika",
+        CAN: "Kanada",
+        JPN: "Japonsko",
+        AUS: "Austrálie",
+        IND: "Indie"
+      };
+
+      const partitionName = map[partition] || partition;
+      const locationName = map[location] || location;
+
+      if (partitionName === locationName) {
+        return `Region: ${partitionName}`;
+      } else {
+        return `Region: ${partitionName} (${locationName})`;
+      }
+    }
+
     async function getTenantId() {
       const domain = document.getElementById("domain").value.trim();
       const resultDiv = document.getElementById("result");
+      const regionDiv = document.getElementById("region");
       const errorDiv = document.getElementById("error");
       const copyBtn = document.getElementById("copyBtn");
 
       resultDiv.textContent = "";
+      regionDiv.textContent = "";
       errorDiv.textContent = "";
       copyBtn.style.display = "none";
 
@@ -107,6 +141,14 @@
         const tenantId = data.issuer.split("/")[3];
         resultDiv.textContent = `Tenant ID: ${tenantId}`;
         copyBtn.style.display = "inline-block";
+
+        // Načtení regionu
+        const regionRes = await fetch(`https://gettenantpartitionweb.azurewebsites.net/api/GetTenantPartition?domain=${domain}`);
+        if (regionRes.ok) {
+          const regionData = await regionRes.json();
+          regionDiv.textContent = getRegionLabel(regionData.partition, regionData.location);
+        }
+
       } catch (error) {
         errorDiv.textContent = error.message;
       }
