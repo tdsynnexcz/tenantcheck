@@ -24,11 +24,24 @@
       max-width: 500px;
       text-align: center;
     }
-    input, button {
+    input {
       width: 100%;
       padding: 1rem;
       margin-top: 1rem;
       font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+    button {
+      width: 100%;
+      padding: 1rem;
+      margin-top: 1rem;
+      font-size: 1rem;
+      background: linear-gradient(#f9f9f9, #e0e0e0);
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      cursor: pointer;
     }
     #result {
       margin-top: 1rem;
@@ -47,6 +60,7 @@
       border: none;
       padding: 1rem;
       cursor: pointer;
+      border-radius: 6px;
     }
     .logo {
       max-width: 200px;
@@ -56,7 +70,7 @@
 </head>
 <body>
   <div class="container">
-    <img src="td_synnex_logo_file.png" alt="TD SYNNEX Logo" class="logo">
+    <img src="TD_SYNNEX_logo_file.png" alt="TD SYNNEX Logo" class="logo">
     <h2>Zjištění Microsoft Tenant ID</h2>
     <input type="text" id="domain" placeholder="Zadejte doménu (např. tdsynnex.com)">
     <button onclick="getTenantId()">Získat Tenant ID</button>
