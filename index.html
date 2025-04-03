@@ -51,16 +51,23 @@
       margin-top: 1rem;
       color: red;
     }
-    #copyBtn {
-      margin-top: 1rem;
-      display: none;
-      background-color: #0078D4;
-      color: white;
-      border: none;
-      padding: 1rem;
-      cursor: pointer;
-      border-radius: 6px;
-    }
+ #copyBtn {
+  margin-top: 1rem;
+  display: none;
+  background-color: white;
+  color: #0078D4;
+  font-weight: bold;
+  border: 2px solid #0078D4;
+  padding: 1rem;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+#copyBtn:hover {
+  background-color: #0078D4;
+  color: white;
+}
     .logo {
       max-width: 200px;
       margin-bottom: 1rem;
