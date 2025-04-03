@@ -51,23 +51,22 @@
       margin-top: 1rem;
       color: red;
     }
- #copyBtn {
-  margin-top: 1rem;
-  display: none;
-  background-color: white;
-  color: #0078D4;
-  font-weight: bold;
-  border: 2px solid #0078D4;
-  padding: 1rem;
-  cursor: pointer;
-  border-radius: 6px;
-  transition: all 0.3s ease;
-}
-
-#copyBtn:hover {
-  background-color: #0078D4;
-  color: white;
-}
+    #copyBtn {
+      margin-top: 1rem;
+      display: none;
+      background-color: white;
+      color: #0078D4;
+      font-weight: bold;
+      border: 2px solid #0078D4;
+      padding: 1rem;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+    #copyBtn:hover {
+      background-color: #0078D4;
+      color: white;
+    }
     .logo {
       max-width: 200px;
       margin-bottom: 1rem;
@@ -115,7 +114,19 @@
 
     function copyResult() {
       const resultText = document.getElementById("result").textContent.replace("Tenant ID: ", "");
-      navigator.clipboard.writeText(resultText);
+      const copyBtn = document.getElementById("copyBtn");
+
+      navigator.clipboard.writeText(resultText).then(() => {
+        copyBtn.textContent = "Zkopírováno!";
+        copyBtn.style.backgroundColor = "#28a745";
+        copyBtn.style.color = "white";
+
+        setTimeout(() => {
+          copyBtn.textContent = "Kopírovat Tenant ID";
+          copyBtn.style.backgroundColor = "white";
+          copyBtn.style.color = "#0078D4";
+        }, 2000);
+      });
     }
   </script>
 </body>
